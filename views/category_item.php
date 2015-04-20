@@ -1,11 +1,9 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <li class="category-item <?=$type?>">
-  <h3 class="category-title">
-    <a href="<?=$url?>">
-      <?=$title?>
-    </a>
-  </h3>
+  <a class="category-link" href="<?=$url?>">
+    <?=$title?>
+  </a>
 
   <ul class="children-list">
     <?php foreach($children as $child): ?>

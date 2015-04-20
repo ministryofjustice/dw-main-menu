@@ -30,9 +30,7 @@ if (class_exists('mmvc')) {
       $menu_id = $this->instance['nav_menu'];
       $menu = wp_get_nav_menu_items($menu_id);
 
-      $current_menu = array();
-      $large_menu = array();
-      $small_menu = array();
+      $organised_menu = array();
       $count = 0;
 
       foreach($menu as $item) {
@@ -47,20 +45,14 @@ if (class_exists('mmvc')) {
         );
 
         if($item['menu_item_parent']) {
-          $current_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
+          $organised_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
         }
         else {
-          $current_menu[$item['ID']] = $item;
-          //$current_menu[$item['ID']]['type'] = $count > 9 ? 'small' : 'large';
+          $organised_menu[$item['ID']] = $item;
         }
       }
 
-      $large_menu = array_splice($current_menu, 0, 6);
-
-      return array(
-        'large_menu' => $large_menu,
-        'small_menu' => $current_menu
-      );
+      return $organised_menu;
     }
   }
 
