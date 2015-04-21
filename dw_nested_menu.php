@@ -10,8 +10,11 @@ ini_set('display_errors', 1);
 if (class_exists('mmvc')) {
   class DW_nested_menu_controller extends MVC_controller {
     function __construct($args, $instance) {
+      global $post;
       $this->args = $args;
       $this->instance = $instance;
+      $this->current_page_id = get_queried_object_id();
+      $this->ancestors = get_ancestors($this->current_page_id, 'page');
 
       parent::__construct();
     }
@@ -39,6 +42,7 @@ if (class_exists('mmvc')) {
         $item = array(
           'title' => $item->title,
           'ID' => $item->ID,
+          'object_id' => (int) $item->object_id,
           'menu_item_parent' => $item->menu_item_parent,
           'url' => $item->url,
           'children' => array()
@@ -48,11 +52,31 @@ if (class_exists('mmvc')) {
           $organised_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
         }
         else {
+          $item['is_current'] = $this->is_ancestor($item['object_id']);
           $organised_menu[$item['ID']] = $item;
         }
       }
 
       return $organised_menu;
+    }
+
+    private function is_ancestor($menu_post_id) {
+      //Debug::full([
+      //  'menu_id' => $menu_post_id,
+      //  'current_page_id' => $this->current_page_id,
+      //  'ancestors' => $this->ancestors
+      //]);
+      if($menu_post_id === $this->current_page_id) {
+        return true;
+      }
+
+      foreach($this->ancestors as $ancestor_id) {
+        if($menu_post_id === $ancestor_id) {
+          return true;
+        }
+      }
+
+      return false;
     }
   }
 

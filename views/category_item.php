@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<li class="category-item <?=$type?>">
+<li class="category-item <?=$is_current? 'current' : 'not-current' ?>">
   <a class="category-link" href="<?=$url?>">
     <?=$title?>
   </a>
