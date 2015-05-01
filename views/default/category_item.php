@@ -7,7 +7,7 @@
 
   <ul class="children-list">
     <?php foreach($children as $child): ?>
-      <?php $this->view('child_item', $child); ?>
+      <?php $this->view('default/child_item', $child); ?>
     <?php endforeach ?>
   </ul>
 </li>

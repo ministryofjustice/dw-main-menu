@@ -20,7 +20,7 @@ if (class_exists('mmvc')) {
     }
 
     function main() {
-      $this->view('main', $this->get_data());
+      $this->view($this->instance['menu_type'] . '/main', $this->get_data());
     }
 
     private function get_data() {
@@ -57,7 +57,15 @@ if (class_exists('mmvc')) {
         }
       }
 
-      return $organised_menu;
+      switch ($this->instance['menu_type']) {
+        case 'guidance_index':
+          return array(
+            'large_menu' => array_splice($organised_menu, 0, 6),
+            'small_menu' => $organised_menu
+          );
+        default:
+          return $organised_menu;
+      }
     }
 
     private function is_ancestor($menu_post_id) {
@@ -82,7 +90,7 @@ if (class_exists('mmvc')) {
 
   class DW_nested_menu extends WP_Widget {
     function __construct() {
-      parent::WP_Widget(false, 'Nested menu', array('description' => 'Nested menu widget'));
+      parent::WP_Widget(false, 'Nested menu', array('description' => 'Nested menu'));
     }
 
     function widget($args, $instance) {
@@ -92,6 +100,7 @@ if (class_exists('mmvc')) {
     function update($new_instance, $old_instance){
       $instance = array();
       $instance['nav_menu'] = (!empty($new_instance['nav_menu'])) ? strip_tags($new_instance['nav_menu']) : '';
+      $instance['menu_type'] = (!empty($new_instance['menu_type'])) ? strip_tags($new_instance['menu_type']) : '';
 
       return $instance;
     }
@@ -99,6 +108,11 @@ if (class_exists('mmvc')) {
     function form($instance) {
   		$nav_menu = isset($instance['nav_menu']) ? $instance['nav_menu'] : __('menu_id', 'text_domain');
   		$menus = get_terms('nav_menu', array('hide_empty' => false));
+      $menu_type = isset($instance['menu_type']) ? $instance['menu_type'] : '';
+  		$menu_types = array(
+        'default' => 'Default',
+        'guidance_index' => 'Guidance Index'
+      );
       ?>
 
       <p>
@@ -106,6 +120,15 @@ if (class_exists('mmvc')) {
         <select id="<?=$this->get_field_id('nav_menu')?>" name="<?=$this->get_field_name('nav_menu')?>">
         <?php foreach($menus as $menu): ?>
             <option value="<?=$menu->term_id?>" <?=selected( $nav_menu, $menu->term_id, false)?> ><?=$menu->name?></option>
+        <?php endforeach ?>
+        </select>
+      </p>
+
+      <p>
+        <label for="<?=$this->get_field_id('menu_type')?>"><?php _e('Type:')?></label>
+        <select id="<?=$this->get_field_id('menu_type')?>" name="<?=$this->get_field_name('menu_type')?>">
+        <?php foreach($menu_types as $name=>$label): ?>
+            <option value="<?=$name?>" <?=$name == $menu_type ? 'selected' : ''?>><?=$label?></option>
         <?php endforeach ?>
         </select>
       </p>
