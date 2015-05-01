@@ -90,7 +90,7 @@ if (class_exists('mmvc')) {
 
   class DW_nested_menu extends WP_Widget {
     function __construct() {
-      parent::WP_Widget(false, 'Nested menu', array('description' => 'Nested menu'));
+      parent::WP_Widget(false, 'DW Nested Menu', array('description' => 'DW Nested Menu'));
     }
 
     function widget($args, $instance) {
