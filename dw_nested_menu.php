@@ -4,8 +4,10 @@ Plugin Name: DW Nested menu
 Description: Display nested menu
 */
 
-error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 1);
+if(WP_DEBUG) {
+  error_reporting(E_ALL ^ E_NOTICE);
+  ini_set('display_errors', 1);
+}
 
 if (class_exists('mmvc')) {
   class DW_nested_menu_controller extends MVC_controller {
