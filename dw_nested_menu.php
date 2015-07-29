@@ -65,6 +65,13 @@ if (class_exists('mmvc')) {
             'large_menu' => array_splice($organised_menu, 0, 6),
             'small_menu' => $organised_menu
           );
+          break;
+        case 'two_columns':
+          return array(
+            1 => array_splice($organised_menu, 0, ceil(count($organised_menu)/2)),
+            2 => $organised_menu
+          );
+          break;
         default:
           return $organised_menu;
       }
@@ -113,7 +120,8 @@ if (class_exists('mmvc')) {
       $menu_type = isset($instance['menu_type']) ? $instance['menu_type'] : '';
   		$menu_types = array(
         'default' => 'Default',
-        'guidance_index' => 'Guidance Index'
+        'guidance_index' => 'Guidance Index',
+        'two_columns' => 'Two columns'
       );
       ?>
 
