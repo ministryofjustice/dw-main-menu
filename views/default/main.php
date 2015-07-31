@@ -2,8 +2,8 @@
 
 <div class="nested-menu-widget">
   <ul class="categories-list">
-    <? foreach($menu_data as $category): ?>
+    <?php foreach($menu_data as $category): ?>
       <?php $this->view('default/category_item', $category) ?>
-    <? endforeach ?>
+    <?php endforeach ?>
   </ul>
 </div>

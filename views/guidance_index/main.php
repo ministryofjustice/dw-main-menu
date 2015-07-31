@@ -4,14 +4,14 @@
 </div>
 <div class="guidance-index-widget">
   <ul class="guidance-categories-list large">
-    <? foreach($menu_data['large_menu'] as $category): ?>
+    <?php foreach($menu_data['large_menu'] as $category): ?>
       <?php $this->view('guidance_index/category_item', $category) ?>
-    <? endforeach ?>
+    <?php endforeach ?>
   </ul>
 
   <ul class="guidance-categories-list small">
-    <? foreach($menu_data['small_menu'] as $category): ?>
+    <?php foreach($menu_data['small_menu'] as $category): ?>
       <?php $this->view('guidance_index/category_item', $category) ?>
-    <? endforeach ?>
+    <?php endforeach ?>
   </ul>
 </div>
