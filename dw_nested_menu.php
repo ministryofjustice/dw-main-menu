@@ -4,6 +4,10 @@ Plugin Name: DW Nested menu
 Description: Display nested menu
 */
 
+function alpha_sort_items($a, $b) {
+  return strnatcmp($a['title'], $b['title']);
+}
+
 if(WP_DEBUG) {
   error_reporting(E_ALL ^ E_NOTICE);
   ini_set('display_errors', 1);
@@ -61,9 +65,20 @@ if (class_exists('mmvc')) {
 
       switch ($this->instance['menu_type']) {
         case 'guidance_index':
+          $popular = array_slice($organised_menu, 0, 6);
+          $all = $organised_menu;
+          usort($popular, "alpha_sort_items");
+          usort($all, "alpha_sort_items");
+
+          foreach($popular as $key=>$menu_item) {
+            $children = $menu_item['children'];
+            usort($children, "alpha_sort_items");
+            $popular[$key]['children'] = $children;
+          }
+
           return array(
-            'large_menu' => array_splice($organised_menu, 0, 6),
-            'small_menu' => $organised_menu
+            'large_menu' => $popular,
+            'small_menu' => $all
           );
           break;
         case 'two_columns':
