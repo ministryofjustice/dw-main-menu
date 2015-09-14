@@ -2,6 +2,9 @@
 /*
 Plugin Name: DW Nested menu
 Description: Display nested menu
+Version: 0.1.0
+
+0.1.0 - remedied WP/PHP4 constructor deprecation issue
 */
 
 function alpha_sort_items($a, $b) {
@@ -114,7 +117,7 @@ if (class_exists('mmvc')) {
 
   class DW_nested_menu extends WP_Widget {
     function __construct() {
-      parent::WP_Widget(false, 'DW Nested Menu', array('description' => 'DW Nested Menu'));
+      parent::__construct(false, 'DW Nested Menu', array('description' => 'DW Nested Menu'));
     }
 
     function widget($args, $instance) {
