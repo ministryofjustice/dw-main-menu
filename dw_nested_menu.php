@@ -7,10 +7,6 @@ Version: 0.1.0
 0.1.0 - remedied WP/PHP4 constructor deprecation issue
 */
 
-function alpha_sort_items($a, $b) {
-  return strnatcmp($a['title'], $b['title']);
-}
-
 if(WP_DEBUG) {
   error_reporting(E_ALL ^ E_NOTICE);
   ini_set('display_errors', 1);
@@ -70,12 +66,12 @@ if (class_exists('mmvc')) {
         case 'guidance_index':
           $popular = array_slice($organised_menu, 0, 6);
           $all = $organised_menu;
-          usort($popular, "alpha_sort_items");
-          usort($all, "alpha_sort_items");
+          usort($popular, "sort_array_by_title");
+          usort($all, "sort_array_by_title");
 
           foreach($popular as $key=>$menu_item) {
             $children = $menu_item['children'];
-            usort($children, "alpha_sort_items");
+            usort($children, "sort_array_by_title");
             $popular[$key]['children'] = $children;
           }
 
