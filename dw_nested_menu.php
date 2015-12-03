@@ -50,6 +50,7 @@ if (class_exists('mmvc')) {
           'object_id' => (int) $item->object_id,
           'menu_item_parent' => $item->menu_item_parent,
           'url' => $item->url,
+          'target_tag' => Taggr::get_tag($item->object_id),
           'children' => array()
         );
 

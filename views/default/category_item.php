@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<li class="category-item <?=$is_current? 'current' : 'not-current' ?>">
+<li class="category-item <?=$is_current? 'current' : 'not-current' ?>" data-target-tag="<?=$target_tag?>">
   <a class="category-link" href="<?=$url?>">
     <?=$title?>
   </a>
