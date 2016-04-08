@@ -7,10 +7,6 @@ Version: 0.1.0
 0.1.0 - remedied WP/PHP4 constructor deprecation issue
 */
 
-function alpha_sort_items($a, $b) {
-  return strnatcmp($a['title'], $b['title']);
-}
-
 if(WP_DEBUG) {
   error_reporting(E_ALL ^ E_NOTICE);
   ini_set('display_errors', 1);
