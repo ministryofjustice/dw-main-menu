@@ -63,23 +63,6 @@ if (class_exists('mmvc')) {
       }
 
       switch ($this->instance['menu_type']) {
-        case 'guidance_index':
-          $popular = array_slice($organised_menu, 0, 6);
-          $all = $organised_menu;
-          usort($popular, "alpha_sort_items");
-          usort($all, "alpha_sort_items");
-
-          foreach($popular as $key=>$menu_item) {
-            $children = $menu_item['children'];
-            usort($children, "alpha_sort_items");
-            $popular[$key]['children'] = $children;
-          }
-
-          return array(
-            'large_menu' => $popular,
-            'small_menu' => $all
-          );
-          break;
         case 'two_columns':
           return array(
             1 => array_splice($organised_menu, 0, ceil(count($organised_menu)/2)),
@@ -134,7 +117,6 @@ if (class_exists('mmvc')) {
       $menu_type = isset($instance['menu_type']) ? $instance['menu_type'] : '';
   		$menu_types = array(
         'default' => 'Default',
-        'guidance_index' => 'Guidance Index',
         'two_columns' => 'Two columns'
       );
       ?>
