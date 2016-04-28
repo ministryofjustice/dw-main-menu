@@ -50,7 +50,8 @@ if (class_exists('mmvc')) {
           'object_id' => (int) $item->object_id,
           'menu_item_parent' => $item->menu_item_parent,
           'url' => $item->url,
-          'children' => array()
+          'children' => array(),
+          'class' => implode(' ', $item->classes)
         );
 
         if($item['menu_item_parent']) {
